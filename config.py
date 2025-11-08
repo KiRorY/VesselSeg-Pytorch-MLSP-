@@ -11,9 +11,9 @@ def parse_args():
 
     # data
     parser.add_argument('--train_data_path_list',
-                        default='./prepare_dataset/data_path_list/STARE/train.txt')
+                        default='./prepare_dataset/data_path_list/DRIVE/train.txt')
     parser.add_argument('--test_data_path_list',
-                        default='./prepare_dataset/data_path_list/STARE/test.txt')
+                        default='./prepare_dataset/data_path_list/DRIVE/test.txt')
     parser.add_argument('--train_patch_height', default=64)
     parser.add_argument('--train_patch_width', default=64)
     parser.add_argument('--N_patches', default=150000,
