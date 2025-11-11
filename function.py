@@ -15,9 +15,6 @@ from tqdm import tqdm
 
 # ========================get dataloader==============================
 def get_dataloader(args):
-    """
-    该函数将数据集加载并直接提取所有训练样本图像块到内存，所以内存占用率较高，容易导致内存溢出
-    """
     patches_imgs_train, patches_masks_train = get_data_train(
         data_path_list = args.train_data_path_list,
         patch_height = args.train_patch_height,
@@ -59,11 +56,11 @@ def get_dataloaderV2(args):
 
     train_set = TrainDatasetV2(imgs_train, masks_train, fovs_train,train_idx,mode="train",args=args)
     train_loader = DataLoader(train_set, batch_size=args.batch_size,
-                              shuffle=True, num_workers=0)
+                              shuffle=True, num_workers=4, pin_memory=True, persistent_workers=True)
 
     val_set = TrainDatasetV2(imgs_train, masks_train, fovs_train,val_idx,mode="val",args=args)
     val_loader = DataLoader(val_set, batch_size=args.batch_size,
-                            shuffle=False, num_workers=0)
+                            shuffle=False, num_workers=4, pin_memory=True, persistent_workers=True)
 
     # Save some samples of feeding to the neural network
     if args.sample_visualization:

@@ -3,6 +3,11 @@ import argparse
 def parse_args():
     parser = argparse.ArgumentParser()
 
+    # mode selection
+    parser.add_argument('--mode', default='full', type=str, 
+                        choices=['train', 'test', 'full'],
+                        help='Execution mode: train (training only), test (testing only), full (train then test)')
+
     # in/out
     parser.add_argument('--outf', default='./experiments',
                         help='trained model will be saved at here')

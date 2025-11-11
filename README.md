@@ -63,8 +63,9 @@ VesselSeg-Pytorch			# Source code
     │   ├── merge_k-flod_plot.py
     │   └── visualization
     ├── function.py			        # Creating dataloader, training and validation functions 
-    ├── test.py			            # Test file
-    └── train.py			          # Train file
+    ├── main.py			            # Unified entry point (train/test/full pipeline)
+    ├── test.py			            # Test file (can be called separately or via main.py)
+    └── train.py			          # Train file (can be called separately or via main.py)
 ```
 ### 1) Datasets preparation 
 1. Please download the retina image datasets(DRIVE, STARE and CHASE_DB1) from [TianYi Cloud](https://cloud.189.cn/t/UJrmYrFZBzIn). Otherwise, you can download three data sets from the official address: [DRIVE](http://www.isi.uu.nl/Research/Databases/DRIVE/),[STARE](http://www.ces.clemson.edu/ahoover/stare/) and [CHASE_DB1]().  
@@ -91,18 +92,36 @@ Please modify the data folder path:`data_root_path`(in the [`drive.py`](https://
 python ./prepare_dataset/drive.py           
 ```
 In the same way, the data path files of the three datasets can be obtained, and the results are saved in the [`./prepare_dataset/data_path_list`](https://github.com/lee-zq/VesselSeg-Pytorch/tree/master/prepare_dataset/data_path_list) folder
-### 2) Training model
-Please confirm the configuration information in the [`config.py`](https://github.com/lee-zq/VesselSeg-Pytorch/blob/master/config.py). Pay special attention to the `train_data_path_list` and `test_data_path_list`. Then, running:
+### 2) Training and Testing
+
+**Recommended: Use the unified main.py script**
+
+The project provides a unified `main.py` script that can handle training, testing, or both:
+
+```bash
+# Full pipeline: Train then test
+python main.py --mode full --save UNet_vessel_seg --batch_size 64
+
+# Training only
+python main.py --mode train --save UNet_vessel_seg --batch_size 64
+
+# Testing only (requires trained model)
+python main.py --mode test --save UNet_vessel_seg
 ```
-CUDA_VISIBLE_DEVICES=1 python train.py --save UNet_vessel_seg --batch_size 64
+
+**Alternative: Use individual scripts**
+
+You can also use the original separate scripts:
+
+```bash
+# Training
+python train.py --save UNet_vessel_seg --batch_size 64
+
+# Testing
+python test.py --save UNet_vessel_seg
 ```
-You can configure the training information in config, or modify the configuration parameters using the command line. The training results will be saved to the corresponding directory(save name) in the `experiments` folder.  
-### 3) Testing model
-The test process also needs to specify parameters in [`config.py`](https://github.com/lee-zq/VesselSeg-Pytorch/blob/master/config.py). You can also modify the parameters through the command line, running:
-```
-CUDA_VISIBLE_DEVICES=1 python test.py --save UNet_vessel_seg  
-```  
-The above command loads the `best_model.pth` in `./experiments/UNet_vessel_seg` and performs a performance test on the testset, and its test results are saved in the same folder.    
+
+Please confirm the configuration information in [`config.py`](https://github.com/lee-zq/VesselSeg-Pytorch/blob/master/config.py). Pay special attention to the `train_data_path_list` and `test_data_path_list`. The training results and test outputs will be saved to the corresponding directory (save name) in the `experiments` folder.    
 
 ## Visualization
 0. Training sample visualization  
