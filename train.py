@@ -13,9 +13,10 @@ from test import Test
 from function import get_dataloader, train, val, get_dataloaderV2
 
 
-def main():
+def main(args=None):
     setpu_seed(2021)
-    args = parse_args()
+    if args is None:
+        args = parse_args()
     save_path = join(args.outf, args.save)
     save_args(args,save_path)
 
@@ -51,8 +52,7 @@ def main():
     # lr_scheduler = optim.lr_scheduler.StepLR(optimizer,step_size=10,gamma=0.5)
     lr_scheduler = optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=args.N_epochs, eta_min=0)
     
-    train_loader, val_loader = get_dataloaderV2(args) # create dataloader
-    # train_loader, val_loader = get_dataloader(args)
+    train_loader, val_loader = get_dataloaderV2(args)
     
     if args.val_on_test: 
         print('\033[0;32m===============Validation on Testset!!!===============\033[0m')

@@ -102,15 +102,18 @@ class Test():
                            ('SP', specificity)])
         return dict_round(log, 6)
 
-if __name__ == '__main__':
-    args = parse_args()
+def main(args=None):
+    if args is None:
+        args = parse_args()
+    
     save_path = join(args.outf, args.save)
     sys.stdout = Print_Logger(os.path.join(save_path, 'test_log.txt'))
     device = torch.device("cuda" if torch.cuda.is_available() and args.cuda else "cpu")
 
-
+    net = models.UNetFamily.U_Net(1, 2).to(device)
+    # net = models.UNetFamily.AttU_Net(1, 2).to(device)
     # net = models.UNetFamily.Dense_Unet(1,2).to(device)
-    net = models.LadderNet(inplanes=1, num_classes=2, layers=3, filters=16).to(device)
+    # net = models.LadderNet(inplanes=1, num_classes=2, layers=3, filters=16).to(device)
     cudnn.benchmark = True
 
     # Load checkpoint
@@ -122,3 +125,7 @@ if __name__ == '__main__':
     eval.inference(net)
     print(eval.evaluate())
     eval.save_segmentation_result()
+
+
+if __name__ == '__main__':
+    main()
