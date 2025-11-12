@@ -1,4 +1,3 @@
-
 import sys
 import os
 import pandas as pd
@@ -21,7 +20,7 @@ class Logger():
         item = OrderedDict({'epoch':epoch})
         item.update(train_log)
         item.update(val_log)
-        item = dict_round(item,6) # 保留小数点后6位有效数字
+        item = dict_round(item,6)
         print(item)
         self.update_csv(item)
         self.update_tensorboard(item)
@@ -29,7 +28,8 @@ class Logger():
     def update_csv(self,item):
         tmp = pd.DataFrame(item,index=[0])
         if self.log is not None:
-            self.log = self.log.append(tmp, ignore_index=True)
+            # 修复 Pandas 2.0+ 兼容性问题
+            self.log = pd.concat([self.log, tmp], ignore_index=True)
         else:
             self.log = tmp
         self.log.to_csv('%s/log%s.csv' %(self.name,self.time_now), index=False)
@@ -40,13 +40,13 @@ class Logger():
         epoch = item['epoch']
         for key,value in item.items():
             if key != 'epoch': self.summary.add_scalar(key, value, epoch)
+            
     def save_graph(self,model,input):
         if self.summary is None:
             self.summary = SummaryWriter('%s/' % self.name)
         self.summary.add_graph(model, (input,))
         print("Architecture of Model have saved in Tensorboard!")
 
-# Record the information printed in the terminal
 class Print_Logger(object):
     def __init__(self, filename="Default.log"):
         self.terminal = sys.stdout
@@ -58,6 +58,4 @@ class Print_Logger(object):
 
     def flush(self):
         pass
-# call by
-# sys.stdout = Logger(os.path.join(save_path,'test_log.txt'))
 

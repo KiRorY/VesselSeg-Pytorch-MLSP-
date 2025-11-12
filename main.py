@@ -4,7 +4,6 @@ from test import main as test_main
 
 
 def main():
-    """Main entry point"""
     args = parse_args()
     
     print('\n' + '='*60)
