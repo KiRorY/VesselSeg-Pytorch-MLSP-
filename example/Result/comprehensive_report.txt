@@ -1,0 +1,91 @@
+================================================================================
+MEDICAL IMAGE SEGMENTATION - COMPREHENSIVE EVALUATION REPORT
+================================================================================
+
+1. OVERVIEW
+--------------------------------------------------------------------------------
+Number of models evaluated: 4
+Models: unet, unet_eam, transunet, transunet_eam
+
+2. SUMMARY METRICS
+--------------------------------------------------------------------------------
+                   dice  dice_std       iou   iou_std  sensitivity  sensitivity_std  specificity  specificity_std  precision  precision_std  accuracy  accuracy_std  boundary_f1  boundary_f1_std      assd  assd_std       auc
+unet           0.917747  0.073759  0.854283  0.105183     0.914199         0.089295     0.991621         0.004667   0.924125       0.056861  0.985756      0.006365     0.978676         0.081845  0.915758  7.584966  0.997834
+unet_eam       0.901529  0.085088  0.828715  0.117064     0.897376         0.101392     0.989972         0.005529   0.909624       0.065209  0.982853      0.007475     0.974043         0.088862  1.074809  8.088890  0.997103
+transunet      0.913455  0.078293  0.847569  0.109263     0.908349         0.092744     0.991419         0.004918   0.921977       0.062838  0.985051      0.006650     0.976899         0.083672  0.949265  7.595820  0.997610
+transunet_eam  0.907963  0.078153  0.838366  0.109085     0.902214         0.093521     0.990746         0.005261   0.916606       0.062381  0.983799      0.007111     0.976779         0.083808  0.973186  7.597788  0.997432
+
+3. MODEL RANKING
+--------------------------------------------------------------------------------
+1. unet: Score=100.00, Avg Rank=1.00
+2. transunet: Score=75.00, Avg Rank=2.00
+3. transunet_eam: Score=50.00, Avg Rank=3.00
+4. unet_eam: Score=25.00, Avg Rank=4.00
+
+4. STATISTICAL SIGNIFICANCE (Paired t-test)
+--------------------------------------------------------------------------------
+
+unet vs unet_eam:
+  dice           : p=0.0000 *** | Cohen's d=+0.204
+  iou            : p=0.0000 *** | Cohen's d=+0.230
+  sensitivity    : p=0.0000 *** | Cohen's d=+0.176
+  specificity    : p=0.0000 *** | Cohen's d=+0.322
+  precision      : p=0.0000 *** | Cohen's d=+0.237
+  boundary_f1    : p=0.0000 *** | Cohen's d=+0.054
+  assd           : p=0.0000 *** | Cohen's d=-0.020
+
+unet vs transunet:
+  dice           : p=0.0000 *** | Cohen's d=+0.056
+  iou            : p=0.0000 *** | Cohen's d=+0.063
+  sensitivity    : p=0.0000 *** | Cohen's d=+0.064
+  specificity    : p=0.0000 *** | Cohen's d=+0.042
+  precision      : p=0.0000 *** | Cohen's d=+0.036
+  boundary_f1    : p=0.0000 *** | Cohen's d=+0.021
+  assd           : p=0.1804 ns  | Cohen's d=-0.004
+
+unet vs transunet_eam:
+  dice           : p=0.0000 *** | Cohen's d=+0.129
+  iou            : p=0.0000 *** | Cohen's d=+0.149
+  sensitivity    : p=0.0000 *** | Cohen's d=+0.131
+  specificity    : p=0.0000 *** | Cohen's d=+0.176
+  precision      : p=0.0000 *** | Cohen's d=+0.126
+  boundary_f1    : p=0.0000 *** | Cohen's d=+0.023
+  assd           : p=0.0434 *   | Cohen's d=-0.008
+
+unet_eam vs transunet:
+  dice           : p=0.0000 *** | Cohen's d=-0.146
+  iou            : p=0.0000 *** | Cohen's d=-0.167
+  sensitivity    : p=0.0000 *** | Cohen's d=-0.113
+  specificity    : p=0.0000 *** | Cohen's d=-0.276
+  precision      : p=0.0000 *** | Cohen's d=-0.193
+  boundary_f1    : p=0.0000 *** | Cohen's d=-0.033
+  assd           : p=0.0001 *** | Cohen's d=+0.016
+
+unet_eam vs transunet_eam:
+  dice           : p=0.0000 *** | Cohen's d=-0.079
+  iou            : p=0.0000 *** | Cohen's d=-0.085
+  sensitivity    : p=0.0000 *** | Cohen's d=-0.050
+  specificity    : p=0.0000 *** | Cohen's d=-0.143
+  precision      : p=0.0000 *** | Cohen's d=-0.109
+  boundary_f1    : p=0.0000 *** | Cohen's d=-0.032
+  assd           : p=0.0001 *** | Cohen's d=+0.013
+
+transunet vs transunet_eam:
+  dice           : p=0.0000 *** | Cohen's d=+0.070
+  iou            : p=0.0000 *** | Cohen's d=+0.084
+  sensitivity    : p=0.0000 *** | Cohen's d=+0.066
+  specificity    : p=0.0000 *** | Cohen's d=+0.132
+  precision      : p=0.0000 *** | Cohen's d=+0.086
+  boundary_f1    : p=0.6881 ns  | Cohen's d=+0.001
+  assd           : p=0.4104 ns  | Cohen's d=-0.003
+
+5. KEY FINDINGS
+--------------------------------------------------------------------------------
+Best DICE           : unet                 (0.9177)
+Best IOU            : unet                 (0.8543)
+Best SENSITIVITY    : unet                 (0.9142)
+Best BOUNDARY_F1    : unet                 (0.9787)
+
+================================================================================
+END OF REPORT
+================================================================================
